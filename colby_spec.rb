@@ -132,6 +132,18 @@ describe "All specs" do
       @c.zip_map(@c.vec(1,2,3), @c.list(4,5,6)).should == @c.hash_map(1,4,2,5,3,6)
     end
 
+
+    it "should convert Arrays, lists, and vecs into a seq (list)" do
+      @c.seq([1,2,4,3]).should == @c.list(1,2,4,3)
+      @c.seq(@c.list(1,2,4,3)).should == @c.list(1,2,4,3)
+      @c.seq(@c.vec(1,2,4,3)).should == @c.list(1,2,4,3)
+    end
+    it "should convert a Hash into a seq" do
+      @c.seq(@c.hash_map(:a,2)).should == @c.list(:a,2)
+    end
+    it "should convert a String into a seq" do
+      @c.seq("abc").should == @c.list("a","b","c")
+    end
   end
 
 end

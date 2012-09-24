@@ -74,5 +74,26 @@ module Colby
     def Core.zip_map coll1, coll2
       return Core.hash_map(Hash[coll1.to_a.zip(coll2.to_a)])
     end
+
+    def Core.seq data
+      if data.is_a? Hamster::List
+        return data
+      elsif data.is_a? Array or
+        data.is_a? Hamster::Vector
+        return Core.list *data
+      elsif data.is_a? Hash
+        return (Core.list *data.keys.to_a.zip(data.values.to_a)).sort
+      elsif data.is_a? Hamster::Hash
+        l = Core.list; data.foreach {|k,v| l = Core.conj(l,(Core.list k, v))}
+        return l.flatten if l.count == 1
+        return l if l.count > 1
+      elsif data.is_a? Hamster::Set
+        return (Core.list *data).sort
+      elsif data.is_a? String
+        return Core.list *data.split("")
+      else
+        raise Exception
+      end
+    end
   end
 end

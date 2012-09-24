@@ -131,6 +131,7 @@ describe "All specs" do
     it "should zip two seqs into a hash_map" do
       @c.zip_map(@c.vec(1,2,3), @c.list(4,5,6)).should == @c.hash_map(1,4,2,5,3,6)
     end
+
   end
 
 end

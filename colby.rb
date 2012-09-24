@@ -78,11 +78,10 @@ module Colby
     def Core.seq data
       if data.is_a? Hamster::List
         return data
-      elsif data.is_a? Array or
-        data.is_a? Hamster::Vector
+      elsif data.is_a? Array or data.is_a? Hamster::Vector
         return Core.list *data
       elsif data.is_a? Hash
-        return (Core.list *data.keys.to_a.zip(data.values.to_a)).sort
+        return Core.list *data.keys.to_a.zip(data.values.to_a)
       elsif data.is_a? Hamster::Hash
         l = Core.list; data.foreach {|k,v| l = Core.conj(l,(Core.list k, v))}
         return l.flatten if l.count == 1

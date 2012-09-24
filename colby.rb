@@ -1,15 +1,12 @@
 require 'hamster'
 
-# other kinds of randomness
-# def define name, value; Object.send(:define_method, name) { value }; end
-# (define :a, 1) #=> a gets associated with a lambda
-
 class IndexOutOfBounds < Exception; end
 
 module Colby
   module Core
-    def Core.hash_map data
-      Hamster.hash data
+    def Core.hash_map *pairs
+      return Hamster.hash(Hash[*pairs]) if pairs.is_a? Array
+      return Hamster.hash(*pairs) if pairs.is_a? Hash
     end
     def Core.vec *data
       Hamster.vector *data
@@ -48,10 +45,34 @@ module Colby
     def Core.get coll, key
       coll.get key unless coll.is_a? Hamster::List
     end
+    def Core.nth coll, key
+      return Core.get coll, key if coll.is_a? Hamster::Vector
+      return coll.to_a[key] if coll.is_a? Hamster::List
+    end
+    def Core.find coll, key
+      return Core.vec(key, Core.get(coll, key)) if coll.is_a? Hamster::Vector
+      return Core.vec(key, Core.get(coll,key)) if coll.is_a? Hamster::Hash
+    end
     def Core.has_key coll, key
       return coll.has_key? key if coll.is_a? Hamster::Hash
       return coll[key] != nil if coll.is_a? Hamster::Vector or coll.is_a? Hamster::Set
       nil
+    end
+    def Core.count coll
+      return coll.length
+    end
+    def Core.peek coll
+      return coll.head if coll.is_a? Hamster::List
+      return coll.last if coll.is_a? Hamster::Vector
+    end
+    def Core.pop coll
+      return coll.tail if coll.is_a? Hamster::List
+      if coll.is_a? Hamster::Vector
+        return Core.vec(*coll.to_a[0..-2])
+      end
+    end
+    def Core.zip_map coll1, coll2
+      return Core.hash_map(Hash[coll1.to_a.zip(coll2.to_a)])
     end
   end
 end

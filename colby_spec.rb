@@ -139,7 +139,7 @@ describe "All specs" do
       @c.seq(@c.vec(1,2,4,3)).should == @c.list(1,2,4,3)
     end
     it "should convert a Hash into a seq" do
-      @c.seq(@c.hash_map(:a,2)).should == @c.list(:a,2)
+      @c.seq(@c.hash_map(:a,2)).should == @c.list(@c.list(:a,2))
     end
     it "should convert a String into a seq" do
       @c.seq("abc").should == @c.list("a","b","c")

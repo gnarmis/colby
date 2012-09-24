@@ -84,8 +84,7 @@ module Colby
         return Core.list *data.keys.to_a.zip(data.values.to_a)
       elsif data.is_a? Hamster::Hash
         l = Core.list; data.foreach {|k,v| l = Core.conj(l,(Core.list k, v))}
-        return l.flatten if l.count == 1
-        return l if l.count > 1
+        return l
       elsif data.is_a? Hamster::Set
         return (Core.list *data).sort
       elsif data.is_a? String

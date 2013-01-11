@@ -17,7 +17,7 @@ Experimenting with bringing Clojure's goodness in Ruby.
 ```ruby
 require './colby.rb'
 
-@c = Colby::Core
+include Colby::Core
 
 # Now you can build hash_map, vec, list, or set
 

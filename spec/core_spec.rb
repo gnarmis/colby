@@ -1,10 +1,13 @@
-require './colby.rb'
+$: << "#{File.dirname(__FILE__)}/../lib"
+
+require 'colby'
 
 include Colby::Core
 
-describe "All specs" do
+describe "Colby" do
 
-  describe "Basic specs" do
+  describe "Core" do
+
     it "should construct hash-maps given a Ruby Hash" do
       hash_map(:a => 1).should == Hamster.hash(:a => 1)
     end
@@ -17,9 +20,7 @@ describe "All specs" do
     it "should construct sets given values" do
       set(1,2,3,3).should == Hamster.set(1,2,3,3)
     end
-  end
 
-  describe "Core functions" do
     it "should conj items to head of list" do
       conj(list(1,2,3), 0).should == list(0,1,2,3)
     end

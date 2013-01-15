@@ -1,21 +1,28 @@
 # Colby
 
-Experimenting with bringing Clojure's goodness in Ruby.
+A small wrapper and functions to make working with persistent, immutable data
+structures easy.
 
 - This project depends on [Hamster](https://github.com/harukizaemon/hamster)
-- The basic idea for now is to have something broadly equivalent to [Mori](http://swannodette.github.com/mori/), but in Ruby
+- [Mori](http://swannodette.github.com/mori/) is a source of ideas for this library
 
 ## Testing
 
 - `rspec .`
 
+## Installation
+
+`gem install colby`
+
+or
+
+`gem build ./colby.gemspec`
+`gem install --local ./colby-x.x.x.gem`
+
 ## Usage
 
-- make sure you have 1.9.3-p194
-- `bundle install`
-
 ```ruby
-require './colby.rb'
+require 'colby'
 
 include Colby::Core
 
